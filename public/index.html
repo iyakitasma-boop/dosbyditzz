@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOS Tool - KILLER_VOIDS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-skull-crossbones"></i>
+                <h1>KILLER_VOIDS</h1>
+                <span class="badge">CODING-MAX v1.0</span>
+            </div>
+            <div class="status">
+                <div class="status-indicator active"></div>
+                <span>AI-Powered DOS Engine</span>
+            </div>
+        </header>
+
+        <!-- Main Card -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2><i class="fas fa-bomb"></i> DOS ATTACK CONTROLLER</h2>
+                <div class="tag">LETHAL MODE: ENGAGED</div>
+            </div>
+
+            <!-- Attack Form -->
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="targetUrl">
+                        <i class="fas fa-crosshairs"></i> Target Website
+                    </label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-globe"></i>
+                        <input type="url" id="targetUrl" 
+                               placeholder="https://example.com" 
+                               required>
+                    </div>
+                    <small class="hint">Enter full URL with http:// or https://</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">
+                        <i class="fas fa-clock"></i> Attack Duration
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="duration" min="10" max="300" value="60" class="slider">
+                        <div class="slider-info">
+                            <span id="durationValue">60</span> seconds
+                        </div>
+                    </div>
+                    <div class="duration-labels">
+                        <span>10s</span>
+                        <span>150s</span>
+                        <span>300s</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-cogs"></i> Attack Method
+                    </label>
+                    <div class="method-selector">
+                        <div class="method-option active" data-method="GHOST">
+                            <div class="method-icon">
+                                <i class="fas fa-ghost"></i>
+                            </div>
+                            <div class="method-info">
+                                <h3>GHOST</h3>
+                                <p>Slowloris variant. Keeps connections open.</p>
+                                <div class="method-stats">
+                                    <span><i class="fas fa-plug"></i> Connection Drain</span>
+                                    <span><i class="fas fa-user-secret"></i> Stealth Mode</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-option" data-method="XFLOOD">
+                            <div class="method-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="method-info">
+                                <h3>XFLOOD</h3>
+                                <p>HTTP/HTTPS flood. Maximum requests per second.</p>
+                                <div class="method-stats">
+                                    <span><i class="fas fa-tachometer-alt"></i> High Speed</span>
+                                    <span><i class="fas fa-database"></i> Bandwidth Drain</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Key (Optional) -->
+                <div class="form-group">
+                    <label for="apiKey">
+                        <i class="fas fa-key"></i> API Key (Optional)
+                    </label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="apiKey" 
+                               placeholder="Enter your API key">
+                    </div>
+                </div>
+
+                <!-- Attack Button -->
+                <div class="attack-controls">
+                    <button id="startAttack" class="btn-attack">
+                        <i class="fas fa-play"></i>
+                        <span>LAUNCH ATTACK</span>
+                    </button>
+                    <button id="stopAttack" class="btn-stop" disabled>
+                        <i class="fas fa-stop"></i>
+                        <span>ABORT MISSION</span>
+                    </button>
+                </div>
+
+                <!-- Warning -->
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>
+                        <strong>WARNING:</strong> This tool is for educational and authorized testing purposes only. 
+                        Unauthorized use against systems you don't own is illegal.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Attack Status -->
+            <div class="status-container hidden" id="statusPanel">
+                <div class="status-header">
+                    <h3><i class="fas fa-satellite-dish"></i> ATTACK IN PROGRESS</h3>
+                    <div class="timer" id="attackTimer">00:00</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Target</span>
+                            <span class="stat-value" id="statTarget">-</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Method</span>
+                            <span class="stat-value" id="statMethod">-</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Requests</span>
+                            <span class="stat-value" id="statRequests">0</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Connections</span>
+                            <span class="stat-value" id="statConnections">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="attackProgress"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Attack Progress</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                </div>
+
+                <!-- Live Log -->
+                <div class="log-container">
+                    <div class="log-header">
+                        <i class="fas fa-terminal"></i>
+                        <span>ATTACK LOG</span>
+                    </div>
+                    <div class="log-content" id="attackLog">
+                        <div class="log-entry">
+                            <span class="log-time">[00:00:00]</span>
+                            <span class="log-message">System initialized. Ready for attack.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-info">
+                <p><i class="fas fa-code"></i> Powered by KILLER_VOIDS CODING-MAX</p>
+                <p class="disclaimer">
+                    <i class="fas fa-shield-alt"></i> 
+                    For authorized security testing only. Use responsibly.
+                </p>
+            </div>
+            <div class="footer-links">
+                <a href="#" id="viewDocs"><i class="fas fa-book"></i> Documentation</a>
+                <a href="#" id="viewSource"><i class="fab fa-github"></i> Source</a>
+                <a href="#" id="resetTool"><i class="fas fa-redo"></i> Reset</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
