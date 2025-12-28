@@ -7,8 +7,6 @@
     "start": "node api/dos.js"
   },
   "dependencies": {},
-  "engines": {
-    "node": ">=24.x"
   },
   "license": "PRIVATE - KILLER_VOIDS CODING-MAX"
 }
